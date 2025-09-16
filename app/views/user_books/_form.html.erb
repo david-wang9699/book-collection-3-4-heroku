@@ -1,0 +1,26 @@
+<%= form_with(model: user_book) do |form| %>
+  <% if user_book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_book.errors.count, "error") %> prohibited this user_book from being saved:</h2>
+      <ul>
+        <% user_book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, 'User' %>
+    <%= form.select :user_id, User.order(:username).pluck(:username, :id), include_blank: true %>
+  </div>
+
+  <div>
+    <%= form.label :book_id, 'Book' %>
+    <%= form.select :book_id, Book.order(:title).pluck(:title, :id), include_blank: true %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
